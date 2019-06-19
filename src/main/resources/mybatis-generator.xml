@@ -17,17 +17,12 @@
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
-        <!--<javaTypeResolver >-->
-        <!--<property name="forceBigDecimals" value="false" />-->
-        <!--</javaTypeResolver>-->
-
-
         <javaModelGenerator targetPackage="com.fc.test.model.workorder" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources/mybatis/workorder">
+        <sqlMapGenerator targetPackage="workorder" targetProject="src/main/resources/mybatis/">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 

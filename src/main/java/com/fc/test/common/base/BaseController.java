@@ -3,7 +3,7 @@ package com.fc.test.common.base;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.fc.test.service.DeviceService;
+import com.fc.test.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 
 import com.fc.test.common.domain.AjaxResult;
 import com.fc.test.model.custom.TitleVo;
-import com.fc.test.service.SysPremissionService;
-import com.fc.test.service.SysRoleService;
-import com.fc.test.service.SysUserService;
 import com.fc.test.util.StringUtils;
 
 /**
@@ -44,6 +41,8 @@ public class BaseController
 	@Autowired
 	public DeviceService deviceService;
 
+	@Autowired
+	public AlarmWorkOrderServer alarmWorkOrderServer;
 
 	
     /**

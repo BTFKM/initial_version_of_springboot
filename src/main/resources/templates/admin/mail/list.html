@@ -52,45 +52,19 @@
             <div class="row">
                 <div class="col-sm-12">
                 <!-- 搜索条件 -->
-                
-<!--                	 <div class="nest" id="inlineClose">
-                            <div class="title-alt">
-                                <h6>搜索条件</h6>
-                                <div class="titleClose">
-                                    <a class="gone" href="#inlineClose">
-                                        <span class="entypo-cancel"></span>
-                                    </a>
-                                </div>
-                                <div class="titleToggle">
-                                    <a class="nav-toggle-alt" href="#search_div">
-                                        <span class="entypo-up-open"></span>
-                                    </a>
-                                </div>
-                            </div>
 
-                            <div class="body-nest" id="search_div">
-                                <div class="form_left">
-                                    <form role="form" class="form-inline">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail2" class="sr-only">用户名字</label>
-                                            <input type="text" name="username" placeholder="用户名字"class="form-control">
-                                        </div>
-                                        <button onclick="$.table.search(this)" class="btn btn-success" type="button"><i class="fa fa-search"></i>&nbsp;搜索</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>-->
                 	<!-- END搜索条件 -->
                     <!-- 空白页开始-->
                     <div class="nest" id="Blank_PageClose">
                         <div class="title-alt">
-                            <h6>设备列表</h6>
+                            <h6>邮件日志</h6>
                             <div class="titleClose">
                                 <a class="gone" href="#Blank_PageClose">
                                     <span class="entypo-cancel"></span>
                                 </a>
                             </div>
                             <div class="titleToggle">
+                                <!--<a class="btn btn-success btn-xs"  href="#" onclick="$.operate.edit"><i class="fa fa-edit"></i>编辑</a>-->
                                 <a class="nav-toggle-alt" href="#Blank_Page_Content">
                                     <span class="entypo-up-open"></span>
                                 </a>
@@ -99,17 +73,7 @@
                         
                         <div class="body-nest" id="Blank_Page_Content">
                             <!-- 工具条 -->
-                            <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
-                            	<button onclick="$.operate.add()" type="button" class="btn btn-primary">
-                                    <span class="entypo-plus-squared"></span>&nbsp;&nbsp;新增
-                                </button>
-                               <button onclick="$.operate.batRemove()" type="button" class="btn btn-info">
-                                    <span class="entypo-trash"></span>&nbsp;&nbsp;删除
-                               </button>
 
-                               
-                               
-                           </div>
                             <!-- 工具条 end-->
                            <table id="dataTable" class="table-striped footable-res footable metro-blue" data-page-size="6">
                                    
@@ -161,95 +125,62 @@
 <script th:src="@{{path}static/admin/assets/js/layer/layer.js(path=${rootPath})}" type="text/javascript"></script>
 <!-- 遮罩层 -->
 <script th:src="@{{path}static/admin/assets/js/blockUI/jquery.blockUI.js(path=${rootPath})}" type="text/javascript"></script>
-<!--控制-->
-<script th:src="@{{path}static/admin/device/js/device-changefirestate.js(path=${rootPath})}" type="text/javascript"></script>
+
 
 <script type="text/javascript">
 <!-- jquery-export 表格导出插件 -->
 
 <!-- 导出 -->
-var dataUrl=window.rootPath+"/DeviceController/list";
-var removeUrl=window.rootPath+"/DeviceController/remove";
-var createUrl=window.rootPath+"/DeviceController/add";
-var updateUrl=window.rootPath+"/DeviceController/edit/{id}";
-var exportUrl=window.rootPath+"/DeviceController/export";
-
-
+var dataUrl=window.rootPath+"/MailController/list";
 
   var options = {
 		dataUrl: dataUrl,
-        createUrl: createUrl,
-        updateUrl: updateUrl,
-        removeUrl:removeUrl,
-        exportUrl: exportUrl,
         sortName: "roleSort",
-        modalName: "用户",
+        modalName: "邮件",
         search: false,
-        id: 'deviceId',
+        id: 'notificationId',
 	   dataColumns: [
 			{
 			    checkbox: true
 			},                   
            {
-               field: 'deviceId',
-               title: '设备序号'
+               field: 'notificationId',
+               title: '提醒单编号'
            },
            {
-               field: 'stateId',
-               title: '设备序列号'
+               field: 'orderId',
+               title: '工单号'
            },
 
            {
-			    field: 'deviceBelong',
-			    title: '设备归属'
+			    field: 'notifyType',
+			    title: '类型'
 			},
            {
-			    field: 'deviceHealth',
-			    title: '设备健康状态'
-           },           {
-			    field: 'stateTmp',
-			    title: '温度'
-           },           {
-			    field: 'stateHum',
-			    title: '湿度'
-           },          {
-               field: 'statePower',
-               title: '电量'
-           },         {
-               field: 'stateIsfire',
-               title: '报警状态'
+
+			    field: 'payload',
+			    title: '告警内容'
            },
-
-
            {
-			    title: '操作',
-			    formatter: function (value, row, index) {
-			        var id = row.deviceId;
-			        var actions = [];
-			        actions.push('<a class="btn btn-success btn-xs"  href="#" onclick="$.operate.edit(\'' + row.deviceId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-			        actions.push('<a class="btn btn-danger btn-xs" href="#" onclick="$.operate.remove(\'' + row.deviceId + '\')"><i class="fa fa-remove"></i>删除</a>');
-			        return actions.join('');
-			
-			        //return '<a class="btn btn-xs btn-danger" onclick="delPermission(' + "'" + id + "'" + ')"><i class="fa fa-remove"></i>删除</a>';
-			    }
-			},
-           {
-               title: '设置报警状态',
-               formatter: function (value, row, index) {
-                   var id = row.deviceId;
-                   var actions = [];
-                   actions.push('<a class="btn btn-success btn-xs"  href="#" onclick="fire_seton(\'' + row.deviceId + '\')"><i class="fa fa-remove"></i>设置报警</a> ');
-                   actions.push('<a class="btn btn-danger btn-xs" href="#" onclick="fire_setoff(\'' + row.deviceId + '\')"><i class="fa fa-edit"></i>报警解除</a>');
-                   return actions.join('');
 
-                   //return '<a class="btn btn-xs btn-danger" onclick="delPermission(' + "'" + id + "'" + ')"><i class="fa fa-remove"></i>删除</a>';
-               }
+			    field: 'notifyAddress',
+			    title: '提醒邮箱',
+
+
+           },           {
+			    field: 'notifyState',
+			    title: '告警状态',
+
+           },           {
+               field: 'pushTime',
+               title: '发送时间',
+
            }
-
-       ]
+           ]
   };
+
 $(function(){
-	var oTab=$.table.oTableInit(options);
+	var oTab=$.table.oTableInitmaillog(options);
 	oTab.Init();
 })
 </script>

@@ -132,6 +132,30 @@ public class DeviceService implements BaseService<TDeviceFoundation,TDeviceFound
     }
 
 
+    /**
+     * 修改火警状态
+     * @param record
+     * @return
+     */
+    public int updateFirestate(String id,int state) {
+        TDeviceFoundation tDeviceFoundation = new TDeviceFoundation();
+        tDeviceFoundation.setDeviceId(id);
+        tDeviceFoundation.setStateIsfire(state);
+        //修改用户信息
+        return tDeviceFoundationMapper.updateByPrimaryKeySelective(tDeviceFoundation);
+    }
+
+    /**
+     * 根据ID获取火灾状态
+     * @param record
+     * @return
+     */
+    public int getFirestate(String id) {
+        return tDeviceFoundationMapper.selectByPrimaryKey(id).getStateIsfire();
+    }
+
+
+
 
     @Override
     public int insertSelective(TDeviceFoundation record) {

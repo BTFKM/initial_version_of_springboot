@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.test.mapper.workorder.NotificationLogMapper">
+  <resultMap id="BaseResultMap" type="com.fc.test.model.workorder.NotificationLog">
+    <id column="notification_id" jdbcType="BIGINT" property="notificationId" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="notify_type" jdbcType="TINYINT" property="notifyType" />
+    <result column="payload" jdbcType="VARCHAR" property="payload" />
+    <result column="notify_address" jdbcType="VARCHAR" property="notifyAddress" />
+    <result column="notify_state" jdbcType="TINYINT" property="notifyState" />
+    <result column="push_time" jdbcType="TIMESTAMP" property="pushTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    notification_id, order_id, notify_type, payload, notify_address, notify_state, push_time
+  </sql>
+  <select id="selectByExample" parameterType="com.fc.test.model.workorder.NotificationLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from notification_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from notification_log
+    where notification_id = #{notificationId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from notification_log
+    where notification_id = #{notificationId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fc.test.model.workorder.NotificationLogExample">
+    delete from notification_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fc.test.model.workorder.NotificationLog">
+    insert into notification_log (notification_id, order_id, notify_type, 
+      payload, notify_address, notify_state, 
+      push_time)
+    values (#{notificationId,jdbcType=BIGINT}, #{orderId,jdbcType=INTEGER}, #{notifyType,jdbcType=TINYINT}, 
+      #{payload,jdbcType=VARCHAR}, #{notifyAddress,jdbcType=VARCHAR}, #{notifyState,jdbcType=TINYINT}, 
+      #{pushTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fc.test.model.workorder.NotificationLog">
+    insert into notification_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="notificationId != null">
+        notification_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="notifyType != null">
+        notify_type,
+      </if>
+      <if test="payload != null">
+        payload,
+      </if>
+      <if test="notifyAddress != null">
+        notify_address,
+      </if>
+      <if test="notifyState != null">
+        notify_state,
+      </if>
+      <if test="pushTime != null">
+        push_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="notificationId != null">
+        #{notificationId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="notifyType != null">
+        #{notifyType,jdbcType=TINYINT},
+      </if>
+      <if test="payload != null">
+        #{payload,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyAddress != null">
+        #{notifyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyState != null">
+        #{notifyState,jdbcType=TINYINT},
+      </if>
+      <if test="pushTime != null">
+        #{pushTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fc.test.model.workorder.NotificationLogExample" resultType="java.lang.Long">
+    select count(*) from notification_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update notification_log
+    <set>
+      <if test="record.notificationId != null">
+        notification_id = #{record.notificationId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.notifyType != null">
+        notify_type = #{record.notifyType,jdbcType=TINYINT},
+      </if>
+      <if test="record.payload != null">
+        payload = #{record.payload,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notifyAddress != null">
+        notify_address = #{record.notifyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notifyState != null">
+        notify_state = #{record.notifyState,jdbcType=TINYINT},
+      </if>
+      <if test="record.pushTime != null">
+        push_time = #{record.pushTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update notification_log
+    set notification_id = #{record.notificationId,jdbcType=BIGINT},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      notify_type = #{record.notifyType,jdbcType=TINYINT},
+      payload = #{record.payload,jdbcType=VARCHAR},
+      notify_address = #{record.notifyAddress,jdbcType=VARCHAR},
+      notify_state = #{record.notifyState,jdbcType=TINYINT},
+      push_time = #{record.pushTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fc.test.model.workorder.NotificationLog">
+    update notification_log
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="notifyType != null">
+        notify_type = #{notifyType,jdbcType=TINYINT},
+      </if>
+      <if test="payload != null">
+        payload = #{payload,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyAddress != null">
+        notify_address = #{notifyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyState != null">
+        notify_state = #{notifyState,jdbcType=TINYINT},
+      </if>
+      <if test="pushTime != null">
+        push_time = #{pushTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where notification_id = #{notificationId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fc.test.model.workorder.NotificationLog">
+    update notification_log
+    set order_id = #{orderId,jdbcType=INTEGER},
+      notify_type = #{notifyType,jdbcType=TINYINT},
+      payload = #{payload,jdbcType=VARCHAR},
+      notify_address = #{notifyAddress,jdbcType=VARCHAR},
+      notify_state = #{notifyState,jdbcType=TINYINT},
+      push_time = #{pushTime,jdbcType=TIMESTAMP}
+    where notification_id = #{notificationId,jdbcType=BIGINT}
+  </update>
+</mapper>

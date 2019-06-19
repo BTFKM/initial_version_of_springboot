@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.test.mapper.workorder.AlarmworkOrderMapper">
+  <resultMap id="BaseResultMap" type="com.fc.test.model.workorder.AlarmworkOrder">
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="working_state" jdbcType="TINYINT" property="workingState" />
+    <result column="order_create_time" jdbcType="TIMESTAMP" property="orderCreateTime" />
+    <result column="order_finish_time" jdbcType="TIMESTAMP" property="orderFinishTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_id, group_id, device_id, working_state, order_create_time, order_finish_time
+  </sql>
+  <select id="selectByExample" parameterType="com.fc.test.model.workorder.AlarmworkOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from alarmwork_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from alarmwork_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from alarmwork_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fc.test.model.workorder.AlarmworkOrderExample">
+    delete from alarmwork_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fc.test.model.workorder.AlarmworkOrder">
+    insert into alarmwork_order (order_id, group_id, device_id, 
+      working_state, order_create_time, order_finish_time
+      )
+    values (#{orderId,jdbcType=INTEGER}, #{groupId,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, 
+      #{workingState,jdbcType=TINYINT}, #{orderCreateTime,jdbcType=TIMESTAMP}, #{orderFinishTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fc.test.model.workorder.AlarmworkOrder">
+    insert into alarmwork_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="workingState != null">
+        working_state,
+      </if>
+      <if test="orderCreateTime != null">
+        order_create_time,
+      </if>
+      <if test="orderFinishTime != null">
+        order_finish_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="workingState != null">
+        #{workingState,jdbcType=TINYINT},
+      </if>
+      <if test="orderCreateTime != null">
+        #{orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderFinishTime != null">
+        #{orderFinishTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fc.test.model.workorder.AlarmworkOrderExample" resultType="java.lang.Long">
+    select count(*) from alarmwork_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update alarmwork_order
+    <set>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupId != null">
+        group_id = #{record.groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceId != null">
+        device_id = #{record.deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workingState != null">
+        working_state = #{record.workingState,jdbcType=TINYINT},
+      </if>
+      <if test="record.orderCreateTime != null">
+        order_create_time = #{record.orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderFinishTime != null">
+        order_finish_time = #{record.orderFinishTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update alarmwork_order
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      group_id = #{record.groupId,jdbcType=VARCHAR},
+      device_id = #{record.deviceId,jdbcType=VARCHAR},
+      working_state = #{record.workingState,jdbcType=TINYINT},
+      order_create_time = #{record.orderCreateTime,jdbcType=TIMESTAMP},
+      order_finish_time = #{record.orderFinishTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fc.test.model.workorder.AlarmworkOrder">
+    update alarmwork_order
+    <set>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="workingState != null">
+        working_state = #{workingState,jdbcType=TINYINT},
+      </if>
+      <if test="orderCreateTime != null">
+        order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderFinishTime != null">
+        order_finish_time = #{orderFinishTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fc.test.model.workorder.AlarmworkOrder">
+    update alarmwork_order
+    set group_id = #{groupId,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      working_state = #{workingState,jdbcType=TINYINT},
+      order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+      order_finish_time = #{orderFinishTime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

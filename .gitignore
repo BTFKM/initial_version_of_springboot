@@ -1,11 +1,22 @@
 # maven ignore
 target/
-#*.jar
-*.war
-*.zip
-*.tar
-*.tar.gz
+.idea
 *.class
+*.log
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.exe
+*.iml
+*.ipr
+*.iws
+*/target/
+*/node_modules/
+
 
 # eclipse ignore
 .settings/

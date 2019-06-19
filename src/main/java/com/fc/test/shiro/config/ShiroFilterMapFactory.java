@@ -41,6 +41,7 @@ user:例如/admins/user/**=user没有参数表示必须存在用户，当登入�
 		filterChainDefinitionMap.put("/static/**", "anon");
 //		filterChainDefinitionMap.put("/templates/**", "anon");
 		filterChainDefinitionMap.put("/DeviceStateController/**", "anon");
+//		filterChainDefinitionMap.put("/OperatorController/**", "anon");
 		filterChainDefinitionMap.put("/login", "anon");
 		filterChainDefinitionMap.put("/login", "anon");
 		filterChainDefinitionMap.put("/logout", "logout");

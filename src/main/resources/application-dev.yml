@@ -1,13 +1,19 @@
 #dev环境  mysql7.0
-spring :
-  datasource :
-      driverClassName : com.mysql.cj.jdbc.Driver
-      url : jdbc:mysql://192.168.3.63:33060/iot?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
-      username : root
-      password : admin123456
-      hikari:
-        maxLifetime: 1765000
-        maximumPoolSize: 15
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.3.63:33060/iot?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    username: root
+    password: admin123456
+    hikari:
+      maxLifetime: 1765000
+      maximumPoolSize: 15
+  mail:
+    host: smtp.163.com
+    username: 18551051565@163.com
+    password: T1G8EnIU7Np
+    protocol: smtp
+    port: 25
 
 #mysql 8.0
 #spring :

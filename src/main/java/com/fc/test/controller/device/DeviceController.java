@@ -3,14 +3,11 @@ package com.fc.test.controller.device;
 import com.alibaba.fastjson.JSON;
 import com.fc.test.common.base.BaseController;
 import com.fc.test.common.domain.AjaxResult;
-import com.fc.test.model.auto.TsysRole;
-import com.fc.test.model.auto.TsysUser;
-import com.fc.test.model.custom.RoleVo;
+
 import com.fc.test.model.custom.TableSplitResult;
 import com.fc.test.model.custom.Tablepar;
 import com.fc.test.model.custom.TitleVo;
 import com.fc.test.model.jpa.TDeviceFoundation;
-import com.fc.test.model.jpa.TDeviceFoundationExample;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -19,8 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Controller
@@ -136,8 +131,45 @@ public class DeviceController extends BaseController {
         return toAjax(deviceService.updateDeviceInfo(tDeviceFoundation));
     }
 
+	/**
+	 * 修改设备火警状态
+	 * @param id
+	 *
+	 * @return
+	 */
+	@PostMapping("/setfireon")
+	@ResponseBody
+	public AjaxResult setfireon(TDeviceFoundation t)
+	{	//查询所有角色
+		if(deviceService.getFirestate(t.getDeviceId())==0) {
+			alarmWorkOrderServer.createOrder(t.getDeviceId());
+			return toAjax(deviceService.updateFirestate(t.getDeviceId(),1));
+		}
+		else
+			return toAjax(0);
 
-    
+	}
+
+	/**
+	 * 修改设备火警状态
+	 * @param id
+	 *
+	 * @return
+	 */
+	@PostMapping("/setfireoff")
+	@ResponseBody
+	public AjaxResult setfireoff(TDeviceFoundation t)
+	{	//查询所有角色
+		System.out.println();
+		System.out.println(t.getDeviceId());
+		System.out.println();
+		if(deviceService.getFirestate(t.getDeviceId())==1){
+			return toAjax(deviceService.updateFirestate(t.getDeviceId(), 0));
+		}
+		else
+			return toAjax(0);
+
+	}
 
 
 	
